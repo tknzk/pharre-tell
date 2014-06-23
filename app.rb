@@ -1,28 +1,51 @@
 require 'rubygems'
 
 require 'sinatra'
+require 'weather_hacker'
+require 'yaml'
 
 #require 'newrelic_rpm'
 
 get '/' do
+  zipcode ='164-0014'
+  client = WeatherHacker::Client.new
+  y = client.get_weather(zipcode)
+  #puts y
+  #puts y['weather']
+  if y['weather'] == '晴れ'
+    pharrell = 'ふぁれてる！'
+  end
 
-  #uri_blog = 'http://tknzk.hatenablog.jp/feed'
-  #uri_tech = 'http://tknzk.hateblo.jp/feed'
+  if y['weather'] == '晴時々曇'
+    pharrell = 'ときどきふぁれてない・・'
+  end
+  if y['weather'] == '晴のち曇'
+    pharrell = 'あさしかふぁれてない・・'
+  end
+  if y['weather'] == '曇のち雨'
+    pharrell = 'ふぁれてない・・'
+  end
+  if y['weather'] == '曇'
+    pharrell = 'ふぁれてない・・'
+  end
+  if y['weather'] == '雨'
+    pharrell = 'さみゅえるえる'
+  end
 
-  #feed_blog = FeedNormalizer::FeedNormalizer.parse open(uri_blog)
-  #feed_tech = FeedNormalizer::FeedNormalizer.parse open(uri_tech)
+  images = ["pharrell_1.jpg","pharrell_2.jpg","pharrell_3.jpg"]
+  img = images[rand(images.size)]
 
-  ##feed.entries.each{ |e|
-  ##    puts e.url
-  ##    puts e.title
-  ##    puts e.last_updated
-  ##    puts ''
-  ##}
+  #puts y['weather']
+  #puts pharrell
+  #puts images
 
-  erb :index
-  #  :locals => {
-  #    :feed_blog => feed_blog,
-  #    :feed_tech => feed_tech
-  #}
+  #puts y
+
+  erb :index,
+    :locals => {
+      :y => y,
+      :pharrell => pharrell,
+      :img => img,
+    }
 
 end
