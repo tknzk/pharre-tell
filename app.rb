@@ -12,6 +12,9 @@ get '/' do
   y = client.get_weather(zipcode)
   #puts y
   #puts y['weather']
+
+  images = ["pharrell_1.jpg","pharrell_2.jpg","pharrell_3.jpg"]
+
   if y['weather'] == '晴れ'
     pharrell = 'ふぁれてる！'
   end
@@ -29,10 +32,9 @@ get '/' do
     pharrell = 'ふぁれてない・・'
   end
   if y['weather'] == '雨'
-    pharrell = 'さみゅえるえる'
+    pharrell = 'さみゅえるえるじゃくそん'
+    images = ["pharrell_4.jpg","samuel_1.jpg"]
   end
-
-  images = ["pharrell_1.jpg","pharrell_2.jpg","pharrell_3.jpg"]
   img = images[rand(images.size)]
 
   #puts y['weather']
